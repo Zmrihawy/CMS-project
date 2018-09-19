@@ -2,7 +2,6 @@ from django.db import models
 
 
 class Post(models.Model):
-    pass
 
     title = models.CharField(
         blank=False,
