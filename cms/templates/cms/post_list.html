@@ -1,1 +1,14 @@
 {% extends 'website/base.html' %}
+
+{% block body %}
+
+    <h1>Posts</h1>
+
+    {% for object in object_list %}
+
+        <h3>{{ object.title }}</h3>
+        <p>{{ object.content }}</p>
+
+    {% endfor %}
+
+{% endblock %}
