@@ -12,17 +12,26 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
+SECRET_KEY = ' '
+DEBUG = True
+ALLOWED_HOSTS = ['*']
+MEDIA_ROOT = 'media/'
+# STATIC_ROOT = 'static/'
+MEDIA_URL = '/media/'
+LOGOUT_URL = '/'
+LOGIN_URL = '/login/'
+STATIC_URL = '/static/'
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '!*t&!wk2v1ff(mn2+%hgl^sf-ekp+i=gh3(nx7!_!vbh8+%j62'
+# SECRET_KEY = '!*t&!wk2v1ff(mn2+%hgl^sf-ekp+i=gh3(nx7!_!vbh8+%j62'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -103,13 +112,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'nb-no'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'CET'
 
 USE_I18N = True
 
