@@ -10,7 +10,7 @@ class Post(models.Model):
     content = models.TextField(
         blank=False,
     )
-    published = models.BooleanField()
+    published = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

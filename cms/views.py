@@ -1,8 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView
-
+from django.views.generic.edit import CreateView
 from cms.models import Post
 
 
@@ -14,6 +13,12 @@ class PostListView(ListView):
 class DraftListView(PostListView):
     queryset = Post.objects.filter(published=False)
     template_name = 'cms/post_list.html'
+    
+    
+class PostCreateView(CreateView):
+    model = Post
+    fields = ['title', 'content', ]
+    success_url = '/drafts'
 
 
 ########################################################
@@ -27,4 +32,3 @@ def publish_post_view(request, pk):
             post.save()
             return HttpResponseRedirect(reverse_lazy("post_list"))
         return HttpResponse("You do not have permission to publish")
-
