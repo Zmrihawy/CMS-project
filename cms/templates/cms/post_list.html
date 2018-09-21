@@ -9,6 +9,13 @@
         <h3>{{ post.title }}</h3>
         <p>{{ post.content }}</p>
 
+        {% if not post.published %}
+        <form method="post" action="{% url "publish_post" pk=post.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="button">Apply</button>
+        </form>
+        {% endif %}
+
     {% endfor %}
 
 {% endblock %}
