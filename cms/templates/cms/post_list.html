@@ -4,10 +4,10 @@
 
     <h1>Posts</h1>
 
-    {% for object in object_list %}
+    {% for post in posts %}
 
-        <h3>{{ object.title }}</h3>
-        <p>{{ object.content }}</p>
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.content }}</p>
 
     {% endfor %}
 
