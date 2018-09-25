@@ -43,6 +43,10 @@ class PostTest(TestCase):
         response = self.client.get(reverse('post_detail', kwargs={'pk': self.post.pk}))
         self.assertEqual(response.status_code, 200)
 
+    def test_post_update_view(self):
+        response = self.client.get(reverse('post_update', kwargs={'pk': self.post.pk}))
+        self.assertEqual(response.status_code, 200)
+
     def test_publish_post_view(self):
         response = self.user.groups.filter(name='editor').exists()
         self.assertEquals(response, False)

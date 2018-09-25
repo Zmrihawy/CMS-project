@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from cms.models import Post
 
 
@@ -18,6 +18,12 @@ class DraftListView(PostListView):
 class PostCreateView(CreateView):
     model = Post
     fields = ['title', 'content', ]
+    success_url = '/drafts'
+
+
+class PostUpdateView(UpdateView):
+    model = Post
+    fields = PostCreateView.fields
     success_url = '/drafts'
 
 
