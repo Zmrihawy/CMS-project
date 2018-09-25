@@ -1,13 +1,21 @@
 {% extends 'website/base.html' %}
+{% load staticfiles %}
 
 {% block body %}
 
     <h1>Posts</h1>
 
-    {% for object in object_list %}
+    {% for post in posts %}
 
-        <h3>{{ object.title }}</h3>
-        <p>{{ object.content }}</p>
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.content }}</p>
+
+        {% if not post.published %}
+        <form method="post" action="{% url "publish_post" pk=post.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="button">Publish</button>
+        </form>
+        {% endif %}
 
     {% endfor %}
 
