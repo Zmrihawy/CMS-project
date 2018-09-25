@@ -2,6 +2,7 @@ from django.contrib.auth.models import Permission, User
 from django.test import TestCase
 from django.urls import reverse
 
+from django.contrib.auth.models import Group
 from cms.models import Post
 
 
@@ -24,13 +25,25 @@ class PostTest(TestCase):
     def test_str(self):
         self.assertEqual(str(self.post), self.post.title)
 
-    def test_list_view(self):
+    def test_post_list_view(self):
         response = self.client.get(reverse('post_list'))
         self.assertEqual(response.status_code, 200)
 
-    def test_add_permissions(self):
-        response = self.client.get(reverse('resource_form'))
-        self.assertNotEqual(response.status_code, 200)
-        self.add_permission('add_resource')
-        response = self.client.get(reverse('resource_form'))
-        self.assertEqual(response.status_code, 200)
+    #def test_add_permissions(self):
+     #   response = self.client.get(reverse('resource_form'))
+      #  self.assertNotEqual(response.status_code, 200)
+       # self.add_permission('add_resource')
+        #self.assertEqual(response.status_code, 200)
+
+    def test_draft_list_view(self):
+        response = self.client.get(reverse('draft_list'))
+        self.assertEquals(response.status_code, 200)
+
+    def test_publish_post_view(self):
+        response = self.user.groups.filter(name='editor').exists()
+        self.assertEquals(response, False)
+        Group.objects.create(name='editor')
+        group = Group.objects.get(name='editor')
+        self.user.groups.add(group)
+        response = self.user.groups.filter(name='editor').exists()
+        self.assertEquals(response, True)
