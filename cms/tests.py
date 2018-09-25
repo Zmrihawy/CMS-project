@@ -39,6 +39,10 @@ class PostTest(TestCase):
         response = self.client.get(reverse('draft_list'))
         self.assertEquals(response.status_code, 200)
 
+    def test_post_detail_view(self):
+        response = self.client.get(reverse('post_detail', kwargs={'pk': self.post.pk}))
+        self.assertEqual(response.status_code, 200)
+
     def test_publish_post_view(self):
         response = self.user.groups.filter(name='editor').exists()
         self.assertEquals(response, False)
@@ -47,3 +51,4 @@ class PostTest(TestCase):
         self.user.groups.add(group)
         response = self.user.groups.filter(name='editor').exists()
         self.assertEquals(response, True)
+
