@@ -1,5 +1,6 @@
 {% extends 'website/base.html' %}
 {% load staticfiles %}
+{% load auth_extras %}
 
 {% block body %}
 
@@ -12,7 +13,7 @@
         </a></h3>
         <p>{{ post.content }}</p>
 
-        {% if not post.published %}
+        {% if not post.published and request.user|has_group:"editor" %}
         <form method="post" action="{% url "publish_post" pk=post.pk %}">
             {% csrf_token %}
             <button type="submit" class="button">Publish</button>
