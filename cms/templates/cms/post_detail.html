@@ -3,6 +3,7 @@
 {% block body %}
 
     <h1>{{ post.title }}</h1>
+    <button onclick="location.href='{% url "post_update" pk=post.pk %}'" type="button">Edit</button>
     <p>{{ post.content }}</p>
 
 {% endblock  %}
