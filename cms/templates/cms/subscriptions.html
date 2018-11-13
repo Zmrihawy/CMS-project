@@ -8,7 +8,22 @@
 {% block body %}
 
 <div class="ui text container">
-    <h1>Posts</h1>
+    <h1>Subscriptions</h1>
+
+    <h3>You subscribe to:</h3>
+    <div class="ui equal width grid">
+        <div class="column">
+            {% with user.subscription.authors.all as authors %}
+                {% include 'cms/authors_list.html' %}
+            {% endwith %}
+        </div>
+
+        <div class="left aligned column">
+        {% with user.subscription.categories.all as categories %}
+            {% include 'cms/category_list.html' %}
+        {% endwith %}
+        </div>
+    </div>
 
     <div class="ui grid">
         <div class="two wide column">
@@ -20,6 +35,9 @@
                   <option value="{{ category.name }}">{{ category.name }}</option>
                 {% endfor %}
             </select>
+        </div>
+        <div class="four wide column">
+            <button type="button" onclick="show_modal()" class="ui tiny blue button">Manage subscriptions</button>
         </div>
     </div>
     <p></p>
@@ -42,20 +60,28 @@
 
                 {% include "cms/assigned_editors.html" %}
 
-                {% include "cms/content_status.html" %}
-
-                {% if perms.cms.add_review %}
+                {% if request.user|has_group:"editor" %}
                     {% include "cms/assign_buttons.html" %}
                 {% endif %}
 
             {% endif %}
-        <p><br></p>
+        <p></p>
         </div>
     {% endfor %}
     </div>
 
+    {% if user.is_authenticated %}
+        {% include "cms/update_subscriptions_modal.html" %}
+    {% endif %}
+
     <script type="text/javascript" src="{% static 'cms/javascript/sort_by_category.js' %}"></script>
     <script>
+        function show_modal() {
+            $('.ui.modal').modal('show');
+        }
+        function hide_modal() {
+            $('.ui.modal').modal('hide');
+        }
         $('.ui.dropdown').dropdown();
     </script>
 

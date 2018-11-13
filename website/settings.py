@@ -15,17 +15,15 @@ import os
 SECRET_KEY = ' '
 DEBUG = True
 ALLOWED_HOSTS = ['*']
-MEDIA_ROOT = 'media/'
-# STATIC_ROOT = 'static/'
 MEDIA_URL = '/media/'
 LOGOUT_URL = '/'
-LOGIN_URL = '/login/'
+LOGIN_URL = 'auth/login/'
+LOGIN_REDIRECT_URL = '/'
 STATIC_URL = '/static/'
-
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -49,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'website',
     'cms',
 ]
 
@@ -75,6 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -113,7 +113,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, "static"),
+    '/var/www/static/',
 )
 
 
